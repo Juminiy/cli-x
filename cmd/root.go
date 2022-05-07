@@ -12,6 +12,8 @@ import (
 )
 var (
 	UsageLongDescription = "Maybe, we don't need the long description."
+	author 	string 
+	version string 
 )
 var rootCmd = &cobra.Command{
 	Use:   "cli-x",
@@ -19,7 +21,7 @@ var rootCmd = &cobra.Command{
 	Long: UsageLongDescription,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("😋 😍 🥰 You have installed cli-x successfully !")
-		fmt.Println("")
+		fmt.Println("😛 😜 😝 Please input ' cli-x help ' for usage !")
 	},
 }
 var infoCmd = &cobra.Command{
@@ -27,12 +29,12 @@ var infoCmd = &cobra.Command{
 	Short: "😁 Show app information. ",
 	Long: UsageLongDescription,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("😉😙🤩😎😆 The Cli-x application information lists : ") 
-		fmt.Println("😉App's Name: ",viper.Get("app.name"))
-		fmt.Println("😙App's Version: ",viper.Get("app.version"))
-		fmt.Println("🤩App's Author: ",viper.Get("app.author")) 
-		fmt.Println("😎App's git: ",viper.Get("app.gitAddress"))
-		fmt.Println("😆App's created: ",viper.Get("app.createdTime"))
+		fmt.Println("😉 😙 🤩 😎 😆 The Cli-x application information lists : ") 
+		fmt.Println("😉 App's Name: ",viper.Get("app.name"))
+		fmt.Println("😙 App's Version: ",viper.GetFloat64("app.version"))
+		fmt.Println("🤩 App's Author: ",viper.Get("app.author")) 
+		fmt.Println("😎 App's git: ",viper.Get("app.gitAddress"))
+		fmt.Println("😆 App's created: ",viper.Get("app.createdTime"))
 	},
 }
 func Execute() {
@@ -43,7 +45,7 @@ func Execute() {
 }
 
 func initConfig() { 
-	viper.SetConfigName("cli-x-config")
+	viper.SetConfigName("cli-x")
 	viper.SetConfigType("yaml") 
 	viper.AddConfigPath("./")
 	if err := viper.ReadInConfig() ; err != nil {
@@ -56,6 +58,8 @@ func initConfig() {
 }
 func init() { 
 	cobra.OnInitialize(initConfig)
+	rootCmd.PersistentFlags().StringVarP(&author,"author","a","","author name")
+	viper.BindPFlag("author",rootCmd.PersistentFlags().Lookup("app.author.name"))
 
 	rootCmd.AddCommand(infoCmd)
 	rootCmd.AddCommand(VersionCmd) 

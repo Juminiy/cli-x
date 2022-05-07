@@ -1,8 +1,10 @@
 app:
   name: cli-x
-  version: 1.0
+  version: 1.0.0
   author:
     name: Chisato
+    original: true
     github: https://github.com/Juminiy
   createdTime: "2022-05-07"
   gitAddress: https://github.com/Juminiy/cli-x
+  
