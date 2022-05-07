@@ -37,6 +37,8 @@ var infoCmd = &cobra.Command{
 		fmt.Println("😆 App's created: ",viper.Get("app.createdTime"))
 	},
 }
+
+
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
