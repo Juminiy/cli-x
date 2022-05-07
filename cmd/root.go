@@ -68,6 +68,7 @@ func init() {
 	rootCmd.AddCommand(ServeCmd)
 	rootCmd.AddCommand(ListCmd) 
 	rootCmd.AddCommand(HttpCmd)
+	rootCmd.AddCommand(MongoCmd)
 }
 
 

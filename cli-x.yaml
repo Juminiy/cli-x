@@ -7,4 +7,9 @@ app:
     github: https://github.com/Juminiy
   createdTime: "2022-05-07"
   gitAddress: https://github.com/Juminiy/cli-x
+mongodb:
+  server:
+    host: localhost:27017
+    user: chisato
+    pass: chisato_mongo
   
