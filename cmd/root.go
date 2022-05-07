@@ -9,11 +9,13 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 )
-
+var (
+	UsageLongDescription = "Maybe, we don't need the long description."
+)
 var rootCmd = &cobra.Command{
 	Use:   "cli-x",
-	Short: "CHISATO CLI-X",
-	Long: `Chisato Cli-x`,
+	Short: "Cli-x is a cmd tool.",
+	Long: UsageLongDescription,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("cli-x")
 	},
@@ -26,9 +28,9 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.AddCommand(VersionCmd) 
 	rootCmd.AddCommand(ServeCmd)
+	rootCmd.AddCommand(ListCmd) 
 }
 
 
