@@ -14,10 +14,10 @@ var (
 )
 var rootCmd = &cobra.Command{
 	Use:   "cli-x",
-	Short: "Cli-x is a cmd tool.",
+	Short: "😀 Cli-x is a cmd tool.",
 	Long: UsageLongDescription,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("cli-x")
+		fmt.Println("😋 😍 🥰 You have installed cli-x successfully !")
 	},
 }
 func Execute() {
@@ -31,6 +31,7 @@ func init() {
 	rootCmd.AddCommand(VersionCmd) 
 	rootCmd.AddCommand(ServeCmd)
 	rootCmd.AddCommand(ListCmd) 
+	rootCmd.AddCommand(HttpCmd)
 }
 
 

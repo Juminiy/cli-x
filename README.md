@@ -10,3 +10,8 @@ from the source code
     go install 
     # go install again and again 
 ````
+
+If  you want to change the cli-x name to other ,please correct the `go.mod` module name,some other like: my-cli and run 
+````bash
+    go mod tidy 
+````

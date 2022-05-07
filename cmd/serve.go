@@ -11,7 +11,7 @@ import (
 )
 var ServeCmd = &cobra.Command{
 	Use:   "serve",
-	Short: "Cli-x serves",
+	Short: "😛 Cli-x serves",
 	Long: UsageLongDescription,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("serve called")
