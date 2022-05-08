@@ -13,9 +13,26 @@ import (
 
 var (
 	UsageLongDescription = "Maybe, we don't need the long description."
-	author 	string 
-	version string 
+	user string 
+	body string
 )
+
+func init() { 
+
+	cobra.OnInitialize(initConfig)
+	rootCmd.PersistentFlags().StringVarP(&user,"user","u","","username")
+	viper.BindPFlag("user",rootCmd.PersistentFlags().Lookup("app.author.name"))
+
+	rootCmd.AddCommand(InfoCmd)
+	rootCmd.AddCommand(VersionCmd) 
+	rootCmd.AddCommand(ListCmd) 
+
+	rootCmd.AddCommand(HttpCmd)
+	HttpCmd.AddCommand(getCmd)
+	HttpCmd.AddCommand(postCmd)
+	postCmd.Flags().StringVarP(&body,"body","b","","http post body")
+	rootCmd.AddCommand(MongoCmd)
+}
 
 var rootCmd = &cobra.Command{
 	Use:   "cli-x",
@@ -27,18 +44,7 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-func init() { 
 
-	cobra.OnInitialize(initConfig)
-	rootCmd.PersistentFlags().StringVarP(&author,"author","a","","author name")
-	viper.BindPFlag("author",rootCmd.PersistentFlags().Lookup("app.author.name"))
-
-	rootCmd.AddCommand(InfoCmd)
-	rootCmd.AddCommand(VersionCmd) 
-	rootCmd.AddCommand(ListCmd) 
-	rootCmd.AddCommand(HttpCmd)
-	rootCmd.AddCommand(MongoCmd)
-}
 
 func Execute() {
 	err := rootCmd.Execute()
