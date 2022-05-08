@@ -7,7 +7,6 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	_ "chisato.live/cli-x/connect"
 )
 
 var MongoCmd = &cobra.Command{

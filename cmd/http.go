@@ -9,7 +9,6 @@ import (
 	"regexp"
 	"github.com/spf13/cobra"
 	"github.com/go-resty/resty/v2"
-
 )
 // regex
 func testUri(uri string) (bool){ 

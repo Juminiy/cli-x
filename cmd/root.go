@@ -7,14 +7,16 @@ package cmd
 import (
 	"os"
 	"fmt"
-	"github.com/spf13/cobra"
+	"github.com/spf13/cobra" 
 	"github.com/spf13/viper"
 )
+
 var (
 	UsageLongDescription = "Maybe, we don't need the long description."
 	author 	string 
 	version string 
 )
+
 var rootCmd = &cobra.Command{
 	Use:   "cli-x",
 	Short: "😀 Cli-x is a cmd tool.",
@@ -24,20 +26,19 @@ var rootCmd = &cobra.Command{
 		fmt.Println("😛 😜 😝 Please input ' cli-x help ' for usage !")
 	},
 }
-var infoCmd = &cobra.Command{
-	Use:   "info",
-	Short: "😁 Show app information. ",
-	Long: UsageLongDescription,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("😉 😙 🤩 😎 😆 The Cli-x application information lists : ") 
-		fmt.Println("😉 App's Name: ",viper.Get("app.name"))
-		fmt.Println("😙 App's Version: ",viper.GetFloat64("app.version"))
-		fmt.Println("🤩 App's Author: ",viper.Get("app.author")) 
-		fmt.Println("😎 App's git: ",viper.Get("app.gitAddress"))
-		fmt.Println("😆 App's created: ",viper.Get("app.createdTime"))
-	},
-}
 
+func init() { 
+
+	cobra.OnInitialize(initConfig)
+	rootCmd.PersistentFlags().StringVarP(&author,"author","a","","author name")
+	viper.BindPFlag("author",rootCmd.PersistentFlags().Lookup("app.author.name"))
+
+	rootCmd.AddCommand(InfoCmd)
+	rootCmd.AddCommand(VersionCmd) 
+	rootCmd.AddCommand(ListCmd) 
+	rootCmd.AddCommand(HttpCmd)
+	rootCmd.AddCommand(MongoCmd)
+}
 
 func Execute() {
 	err := rootCmd.Execute()
@@ -45,30 +46,4 @@ func Execute() {
 		os.Exit(1)
 	}
 }
-
-func initConfig() { 
-	viper.SetConfigName("cli-x")
-	viper.SetConfigType("yaml") 
-	viper.AddConfigPath("./")
-	if err := viper.ReadInConfig() ; err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError) ; ok {
-			fmt.Println("Config file not found!")
-		} else {
-			fmt.Println("Error is ",err)
-		}
-	} 
-}
-func init() { 
-	cobra.OnInitialize(initConfig)
-	rootCmd.PersistentFlags().StringVarP(&author,"author","a","","author name")
-	viper.BindPFlag("author",rootCmd.PersistentFlags().Lookup("app.author.name"))
-
-	rootCmd.AddCommand(infoCmd)
-	rootCmd.AddCommand(VersionCmd) 
-	rootCmd.AddCommand(ServeCmd)
-	rootCmd.AddCommand(ListCmd) 
-	rootCmd.AddCommand(HttpCmd)
-	rootCmd.AddCommand(MongoCmd)
-}
-
 
